@@ -1,0 +1,14 @@
+Host bind-master
+     User vagrant
+     IdentityFile {{ home }}/dns-service-playbooks/test/.vagrant/machines/master/libvirt/private_key
+     StrictHostKeyChecking no
+
+Host bind-slave-1
+     User vagrant
+     IdentityFile {{ home }}/dns-service-playbooks/test/.vagrant/machines/slave_1/libvirt/private_key
+     StrictHostKeyChecking no
+
+Host bind-slave-2
+     User vagrant
+     IdentityFile {{ home }}/dns-service-playbooks/test/.vagrant/machines/slave_2/libvirt/private_key
+     StrictHostKeyChecking no

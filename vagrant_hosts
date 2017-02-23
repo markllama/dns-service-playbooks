@@ -1,0 +1,3 @@
+192.168.33.10 bind-master
+192.168.33.11 bind-slave-1
+192.168.33.12 bind-slave-2
