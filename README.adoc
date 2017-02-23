@@ -1,0 +1,8 @@
+== DNS Service Playbooks
+
+This Repository contains a set of Ansible playbooks to create a complete DNS
+service on multiple hosts, with a single hidden master server and multiple
+slave and caching servers.
+
+Eventually it will contain a playbook which can promote one slave to master
+in case of the failure of the master.

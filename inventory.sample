@@ -1,0 +1,19 @@
+
+[bind:children]
+master
+slaves
+
+[bind:vars]
+zone_name=example.com
+forwarders=['1.2.3.4', '1.2.3.5', '1.2.3.6']
+admin_email=admin.example.com
+update_key="bKcZ4P2FhWKRQoWtx5F33w=="
+nameservers=[ { 'name': 'ns1', 'address': '1.2.3.2' } ]
+
+[master]
+bind-master-vm
+
+[slaves]
+bind-slave-vm-1
+bind-slave-vm-2
+

@@ -1,0 +1,8 @@
+include "/etc/named/update.key" ;
+
+zone {{ zone_name }} {
+  type slave ; 
+  masters { {% for address in masters %} {{ master }} ; {% endfor %} } ;
+  file "/var/named/dynamic/zone.db" ;
+  allow-update { key update-key ; } ;
+};
