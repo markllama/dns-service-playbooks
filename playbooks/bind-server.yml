@@ -29,7 +29,13 @@
 
     - name: named configuration file
       action: template src=../templates/named.conf.j2 dest=/etc/named.conf
+      notify:
+      - restart named
 
+  handlers:
+    - name: restart named
+      systemd: name=named state=restarted
+    
 - hosts: masters
   user: vagrant
   become: yes
@@ -39,13 +45,24 @@
   tasks:
     - name: named master zone configuration file(s)
       action: template src=../templates/zones.conf-master.j2 dest=/etc/named/zones.conf
+      notify:
+      - restart named
     
     - name: set zone update key
       action: template src=../templates/update.key.j2 dest=/etc/named/update.key
+      notify:
+      - restart named
 
     - name: set zone data file(s)
       action: template src=../templates/zone.db.j2 dest=/var/named/dynamic/zone.db owner=named group=named
+      notify:
+      - restart named
 
+  handlers:
+    - name: restart named
+      systemd: name=named state=restarted
+
+      
 - hosts: slaves
   user: vagrant
   become: yes
@@ -55,9 +72,20 @@
   tasks:
     - name: named slave zone configuration file(s)
       action: template src=../templates/zones.conf-slave.j2 dest=/etc/named/zones.conf
+      notify:
+      - restart named
 
     - name: set zone update key
       action: template src=../templates/update.key.j2 dest=/etc/named/update.key
+      notify:
+      - restart named
 
-    - name: set zone data file(s)
-      action: template src=../templates/zone.db.j2 dest=/var/named/dynamic/zone.db owner=named group=named
+#    - name: set zone data file(s)
+#      action: template src=../templates/zone.db.j2 dest=/var/named/dynamic/zone.db owner=named group=named
+#      notify:
+#      - restart named
+
+  handlers:
+    - name: restart named
+      systemd: name=named state=restarted
+
