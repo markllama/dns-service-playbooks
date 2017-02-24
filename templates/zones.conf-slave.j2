@@ -4,5 +4,5 @@ zone {{ zone_name }} {
   type slave ; 
   masters { {% for ns in nameservers %} {%- if ns.name in zone_masters -%} {{ ns.address }} ; {% endif -%} {% endfor -%} } ;
   file "/var/named/dynamic/zone.db" ;
-  allow-update { key update-key ; } ;
+  allow-update-forwarding { any ; } ;
 };

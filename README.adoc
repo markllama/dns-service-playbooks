@@ -6,3 +6,6 @@ slave and caching servers.
 
 Eventually it will contain a playbook which can promote one slave to master
 in case of the failure of the master.
+
+
+    rndc-confgen -a -c update.key -k update-key -r /dev/urandom
