@@ -1,5 +1,5 @@
 # Create a bind master
-- hosts: master
+- hosts: bind
   user: vagrant
   become: yes
 
@@ -18,6 +18,22 @@
     - name: install bind server
       action: dnf name=bind state=installed
 
+    - name: firewall service
+      action: systemd name=firewalld enabled=yes state=started
+      
+    - name: dns service
+      action: systemd name=named enabled=yes state=started
+
+    - name: dns port
+      action: firewalld zone=public service=dns state=enabled permanent=yes immediate=yes
+
+- hosts: master
+  user: vagrant
+  become: yes
+
+  vars:
+    
+  tasks:
     - name: named configuration file
       action: template src=../templates/named.conf.j2 dest=/etc/named.conf
 
@@ -30,11 +46,3 @@
     - name: set zone data file(s)
       action: template src=../templates/zone.db.j2 dest=/var/named/dynamic/zone.db owner=named group=named
 
-    - name: firewall service
-      action: systemd name=firewalld enabled=yes state=started
-      
-    - name: dns service
-      action: systemd name=named enabled=yes state=started
-
-    - name: dns port
-      action: firewalld zone=public service=dns state=enabled permanent=yes immediate=yes
