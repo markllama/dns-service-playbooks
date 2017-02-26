@@ -32,5 +32,4 @@ for FILE in $FILES ; do
 		transform $FILE
 done
 
-exec bash
-
+exec /usr/sbin/named -u named -g $*
