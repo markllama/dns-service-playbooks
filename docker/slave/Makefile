@@ -11,10 +11,12 @@ test_env: test_env.template update.key
 	grep secret update.key | awk '{print $$2}' | tr -d \; | tr -d \" >> test_env
 
 build:
-	docker build -t markllama/bind-master .
+	docker build -t markllama/bind-slave .
 
 run: update.key
-	docker run -d -p 53/udp --env-file test_env --name dns-master markllama/bind-master
+	docker run -d -p 53/udp --env-file test_env --name dns-slave-0 \
+	  -e MASTERS="['"$(docker inspect --format "{{.NetworkSettings.IPAddress}}" dns-master)"']" \
+	  markllama/bind-slave
 
 shell:
 	docker run -it --rm markllama/bind-master /bin/bash
