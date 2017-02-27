@@ -5,6 +5,9 @@ update.key:
 
 test_env: test_env.template update.key
 	cp test_env.template test_env
+	M=`docker inspect --format "{{.NetworkSettings.IPAddress}}" dns-master`
+	echo "MASTERS=[$M]">> test_env
+	echo -n "UPDATE_KEY=" >> test_env
 	grep secret update.key | awk '{print $$2}' | tr -d \; | tr -d \" >> test_env
 
 build:

@@ -20,7 +20,7 @@ function transform() {
 {
   'zone_name': '${ZONE}',
   'admin_email': '${ADMIN_EMAIL}',
-  'forwarders': ${FORWARDERS},
+  'forwarders': '${FORWARDERS}',
   'update_key': '${UPDATE_KEY}',
   'nameservers': ${NAMESERVERS}
 }

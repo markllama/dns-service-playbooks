@@ -1,5 +1,5 @@
 ZONE=test.example.com
-ADMIN_EMAIL=admin.example.com
 NAMESERVERS=[{'name': 'ns1', 'address': '10.0.0.1'}]
 FORWARDERS=['192.168.1.1', '4.2.2.1', '4.2.2.2']
+MASTERS=['172.17.0.2']
 UPDATE_KEY=
