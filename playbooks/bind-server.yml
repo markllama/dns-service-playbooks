@@ -1,7 +1,5 @@
 # Create a bind master
 - hosts: bind
-  user: vagrant
-  become: yes
 
   vars:
     
@@ -31,9 +29,6 @@
       action: template src=../templates/named.conf.j2 dest=/etc/named.conf
     
 - hosts: masters
-  user: vagrant
-  become: yes
-
   vars:
     
   tasks:
@@ -62,8 +57,6 @@
 
       
 - hosts: slaves
-  user: vagrant
-  become: yes
 
   vars:
 
