@@ -33,9 +33,15 @@
     
   tasks:
 
-    #- name: install python DNS package
-    #  action: package name=python2-dns state=installed
-      
+    # On RHEL7 this is python-dns.  On F25 it's python2-dns
+    - name: install python DNS package
+      action: package name=python2-dns state=installed
+      when: (ansible_distribution == "Fedora")
+
+    - name: install python DNS package
+      action: package name=python-dns state=installed
+      when: (ansible_distribution == "RHEL" or ansible_distribution == "CentOS")
+
     - name: named master zone configuration file(s)
       action: template src=../templates/zones.conf-master.j2 dest=/etc/named/zones.conf
       notify:
@@ -50,7 +56,7 @@
       action: template src=../templates/zone.db.j2 dest=/var/named/dynamic/zone.db owner=named group=named
       notify:
       - restart named
-
+  
   handlers:
     - name: restart named
       systemd: name=named state=restarted
@@ -74,4 +80,3 @@
   handlers:
     - name: restart named
       systemd: name=named state=restarted
-
