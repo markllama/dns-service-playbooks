@@ -1,11 +1,16 @@
 $ORIGIN {{ zone }}.
-@				IN SOA			 {{ nameservers[0].name }}.{{ zone }}. {{ contact }} (
-				0     ; serial number
-				8h    ; refresh
-				1h    ; retry
-				7d    ; expire
-				1d  ) ; min TTL
+$TTL 300
+@	IN SOA	{{ nameservers[0].name }}.{{ zone }}.	{{ contact }} (
+	0	; serial number
+	8h	; refresh
+	1h	; retry
+	7d	; expire
+	1d	) ; min TTL
 
-				IN	NS	{{ nameservers[0].name }}.{{ zone }}.
-				
-{{ nameservers[0].name }}	IN	A	{{ nameservers[0].address }}
+{% for ns in nameservers %}
+	IN	NS	{{ ns.name }}.{{ zone }}.
+{% endfor %}
+
+{% for ns in nameservers %}
+{{ ns.name }}	IN	A	{{ ns.address }}
+{% endfor %}
